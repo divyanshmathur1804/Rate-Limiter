@@ -7,18 +7,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tools.ratelimiter.service.RateLimiterService;
+import com.tools.ratelimiter.service.RedisTokenBucketService;
 
 @RestController
 public class rateLimitController {
     private RateLimiterService rateLimiterService;
+    private RedisTokenBucketService redisTokenBucketService;
 
-    public rateLimitController(RateLimiterService rateLimiterService){
+    public rateLimitController(RateLimiterService rateLimiterService, RedisTokenBucketService redisTokenBucketService){
         this.rateLimiterService = rateLimiterService;
+        this.redisTokenBucketService = redisTokenBucketService;
     }
 
     @GetMapping("/api/{clientId}")
     public ResponseEntity<String> check(@PathVariable String clientId) {
-    boolean allowed = rateLimiterService.checkClient(clientId);
+    boolean allowed = redisTokenBucketService.tryConsume(clientId, 10, 5.0);
 
     if (allowed) {
         return ResponseEntity.ok("Request allowed");
