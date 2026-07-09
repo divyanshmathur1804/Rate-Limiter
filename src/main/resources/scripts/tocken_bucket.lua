@@ -12,7 +12,7 @@ else
     lastRefillTimeStamp = tonumber(lastRefillTimeStamp)
 end
 
-local elapsedTime = now - lastRefillTimeStamp
+local elapsedTime = (now - lastRefillTimeStamp)/1000.0
 local tokensToAdd = elapsedTime*refillRate
 
 tokens = math.min(capacity, tokens+tokensToAdd)
