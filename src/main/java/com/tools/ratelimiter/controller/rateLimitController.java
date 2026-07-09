@@ -53,7 +53,7 @@ public HashMap<String, Object> getStats() {
         long rejected = entry.getValue()[1].get();
 
         ClientStatResponseDTO res = new ClientStatResponseDTO();
-        res.setClientID(clientId);
+        res.setClientId(clientId);
         res.setAllowed(allowed);
         res.setRejected(rejected);
         res.setCapacity(10);
