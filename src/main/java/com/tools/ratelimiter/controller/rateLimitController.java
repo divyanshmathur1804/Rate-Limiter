@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.http.HttpStatus;
@@ -70,5 +69,10 @@ public HashMap<String, Object> getStats() {
     map.put("totalRejected", totalRejected);
 
     return map;
+}
+
+@GetMapping("/health")
+public ResponseEntity<String> healthCheck(){
+return ResponseEntity.ok("OK");
 }
 }
